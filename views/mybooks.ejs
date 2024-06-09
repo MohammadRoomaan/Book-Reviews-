@@ -1,0 +1,156 @@
+<%- include("nav.ejs") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 80px auto 0 auto; /* Center the container and add margin-top */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .books {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .book {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(50% - 30px); /* Adjust width to display two cards per row */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .book h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .book p {
+            margin: 5px 0;
+            padding: 5px;
+        }
+
+        .book-info {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .book-image {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .book img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .delete-form {
+            margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>My Reviewed Books</h1>
+    <div class="books">
+        <!-- Display book data using a loop -->
+        <% books.forEach(book => { %>
+        <div class="book">
+            <div class="book-info">
+                <h2><%= book.title %></h2>
+                <p><strong>Rating:</strong> <%= book.rating %></p>
+                <p><strong>Experience:</strong> <%= book.experience %></p>
+                <p><strong>Feedback:</strong> <%= book.feedback %></p>
+                <form action="/deletebook" method="POST" class="delete-form">
+                    <input type="hidden" name="deletebookId" value="<%= book.id %>">
+                    <button type="submit" class="btn">DELETE BOOK</button>
+                </form>
+            </div>
+            <div class="book-image">
+                <img src="<%= book.img_urls %>" alt="Book Cover">
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>
+
+</body>
+</html>
